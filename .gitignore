@@ -4,6 +4,7 @@ figures/
 data/
 venv/
 *.pdf
+bibliographie/
 
 # Latex aux files
 *.aux
