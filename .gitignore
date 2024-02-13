@@ -2,6 +2,7 @@
 bureaucracie/
 figures/
 data/
+venv/
 *.pdf
 
 # Latex aux files
