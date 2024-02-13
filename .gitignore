@@ -1,0 +1,14 @@
+# Gitignore
+bureaucracie/
+figures/
+data/
+*.pdf
+
+# Latex aux files
+*.aux
+*.log
+*.out
+*.toc
+*.fdb_latexmk
+*.fls
+*.synctex.gz

@@ -1,0 +1,75 @@
+\documentclass[onecolumn,11pt]{article}
+%*********
+%Paquetes
+%*********
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper, total={7in, 9in}]{geometry}
+\usepackage{amsfonts}
+\usepackage{dsfont}
+\usepackage{physics}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tikz-cd} %para diagrama conmutatitvo
+\usepackage{multicol} 
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage{subcaption}
+\listfiles
+
+%*********
+%Comandos
+%*********
+\newcommand{\mcU}{\mathcal{U}}
+\newcommand{\mcV}{\mathcal{V}}
+\newcommand{\mcO}{\mathcal{O}}
+\newcommand{\mcI}{\mathcal{I}}
+\newcommand{\mcL}{\mathcal{L}}
+\newcommand{\mcS}{\mathcal{S}}
+\newcommand{\hilbert}{{\sf H}}
+\newcommand{\mcB}{\mathcal{B}}
+\newcommand{\mcH}{\mathcal{H}}
+\newcommand{\mcK}{\mathcal{K}}
+\newcommand{\mcF}{\mathcal{F}}
+\newcommand{\mcC}{\mathcal{C}}
+\newcommand{\mcT}{\mathcal{T}}
+\newcommand{\mcE}{\ensuremath{\mathcal{E}} }
+\newcommand{\mcG}{\ensuremath{\mathcal{G}} }
+\newcommand{\mcM}{\mathcal{M}}
+\newcommand{\mcN}{\mathcal{N}}
+\newcommand{\nnn}{\mathcal{N}}
+\newcommand{\choi}{\ensuremath{\mcD} }
+\newcommand{\mmm}{\mathcal{M}}
+\newcommand{\sss}{\mathcal{S}}
+\newcommand{\mcD}{\mathcal{D}}
+\newcommand{\mcA}{\mathcal{A}}
+\newcommand{\mcP}{\mathcal{P}}
+\newcommand{\Complex}{\mathbb{C}} %Para escribir al espacio de hilbert complejo
+\newcommand{\Id}{\mathds{1}}% Para escribir el op. indentidad con notación chida
+\newcommand{\CG}[1]{\mcC\left[#1\right]}
+\newcommand{\Fuzzy}[1]{\mcF\left[#1\right]}
+\newcommand{\nota}[1]{{\color{red} [#1]}}
+\newcommand{\notaAd}[1]{{\color{orange} [#1]}} %Notas pero mías
+\newcommand{\pauli}[1]{\sigma_{#1}} %Para las matrices de pauli
+\newcommand{\paulivec}[1]{\hat{#1}\cdot\vec{\sigma}} %Para vectores de Pauli unitarios
+\newcommand{\cnot}{\text{C}_{\text{NOT}}} %Para el CNOT
+\newcommand{\eff}{\text{ef}}
+\newcommand{\ef}{\text{ef}}
+\newcommand{\np}{\text{np}}
+\DeclareMathOperator*{\Motimes}{\text{\raisebox{0.25ex}{\scalebox{0.8}{$\bigotimes$}}}} %para los productos tensoriales
+%FixNote
+\usepackage[draft,inline,nomargin]{fixme} \fxsetup{theme=color}
+\newcommand\dsone{\mathds{1}}
+\newenvironment{proof}{\paragraph{Demostración:}\color{darkgray}\begin{multicols}{2}}{\hfill$\square$\end{multicols}}
+
+\title{Stage au IPCMS}
+\author{Autores}
+\date{}
+\begin{document}
+\maketitle
+\tableofcontents
+\input{week1.tex}
+\input{week2.tex}
+
+
+
+\end{document}
