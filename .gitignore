@@ -6,6 +6,8 @@ venv/
 *.pdf
 bibliographie/
 
+# Testing change
+
 # Latex aux files
 *.aux
 *.log
