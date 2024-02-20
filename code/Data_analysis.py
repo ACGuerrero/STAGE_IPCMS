@@ -204,69 +204,67 @@ def fit(dir, plot):
 def cos(f, A, phi):
     return np.exp(A)*np.cos(2.358*f+phi)
 
-# This function fits the data with a cosinus function
-# It returns the amplitude, the phase and the frequency of the maximum amplitude
-# The input is the directory of the file and a boolean to plot the data or not
+# Fitting function that uses the openfile function and fits a cosine function to the data
 def cosfit(dir, plot):
     f, C = openfile(dir, 0)
-    f=np.array(f)
-    A=[]
-    freq=[]
-    phi=[]
-    j=108
-    if plot==1:
+    f = np.array(f)
+    A = []
+    freq = []
+    phi = []
+    j = 108  # parameter for the range of data to fit
+    if plot == 1:
         plt.figure()
         plt.grid()
-        plt.plot(f/10**3, C, ".", label="Data")
-    for i in range(0, len(f)-j-1, 3):
-        P0=[10, 0]
-        P=curve_fit(cos, f[i:i+j], C[i:i+j], P0, bounds=([-np.inf, -np.inf],[np.inf,np.inf]), maxfev=5000)[0]
-        if np.exp(P[0])>0.01:
+        plt.plot(f / 10 ** 3, C, ".", label="Data")
+    for i in range(0, len(f) - j - 1, 3):
+        P0 = [10, 0]  # Initial parameters for curve fitting
+        # Curve fitting using scipy's curve_fit function
+        P = curve_fit(cos, f[i:i + j], C[i:i + j], P0, bounds=([-np.inf, -np.inf], [np.inf, np.inf]), maxfev=5000)[0]
+        if np.exp(P[0]) > 0.01:  # Check if the fit is significant
             A.append(np.exp(P[0]))
-            freq.append(f[i+int(j/2)])
+            freq.append(f[i + int(j / 2)])
             phi.append(P[1])
-        if plot==1:
-            plt.plot(f[i:i+j]/10**3, cos(f[i:i+j], *P), "r")
-    if plot==1:
+        if plot == 1:
+            plt.plot(f[i:i + j] / 10 ** 3, cos(f[i:i + j], *P), "r")  # Plot the fitted curve
+    if plot == 1:
         plt.legend()
         plt.xlabel("Frequency (THz)")
         plt.ylabel("Photocurrent (nA)")
         plt.show()
-    return (A, phi, freq)
-
-
-
-
+    return A, phi, freq
+  
+# This code 
+# Another fitting function with variations in parameters and conditions
 def cosfit2(dir, plot):
     f, C = openfile(dir, 0)
-    f=np.array(f)
-    A=[]
-    freq=[]
-    phi=[]
-    j=27
-    if plot==1:
+    f = np.array(f)
+    A = []
+    freq = []
+    phi = []
+    j = 27  # parameter for the range of data to fit
+    if plot == 1:
         plt.figure()
         plt.grid()
         plt.plot(f, C, ".", label="Data")
-    for i in range(0, len(f)-j-1, 3):
-        if i<(len(f)-j-1)/3:
-            P0=[10, 0]
-            P=curve_fit(cos, f[i:i+j], C[i:i+j], P0, maxfev=5000)[0]
+    for i in range(0, len(f) - j - 1, 3):
+        if i < (len(f) - j - 1) / 3:
+            P0 = [10, 0]  # Initial parameters for curve fitting
         else:
-            P0=[2, 0]
-            P=curve_fit(cos, f[i:i+j], C[i:i+j], P0, maxfev=5000)[0]
-        if np.exp(P[0])>0.001:
+            P0 = [2, 0]  # Different initial parameters for the second part of the data
+        # Curve fitting using scipy's curve_fit function
+        P = curve_fit(cos, f[i:i + j], C[i:i + j], P0, maxfev=5000)[0]
+        if np.exp(P[0]) > 0.001:  # Check if the fit is significant
             A.append(np.exp(P[0]))
-            freq.append(f[i+int(j/2)])
+            freq.append(f[i + int(j / 2)])
             phi.append(P[1])
-        if plot==1:
-            plt.plot(f[i:i+j], cos(f[i:i+j], *P), "r")
-    if plot==1:
+        if plot == 1:
+            plt.plot(f[i:i + j], cos(f[i:i + j], *P), "r")  # Plot the fitted curve
+    if plot == 1:
         plt.legend()
         plt.xlabel("Frequency (THz)")
         plt.ylabel("Photocurrent (nA)")
         plt.show()
-    return (A, phi, freq)
+    return A, phi, freq
 
 def cosfit3(dir, plot):
     f, C, f2, C2 = open1(dir, 0)

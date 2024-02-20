@@ -5,8 +5,7 @@ data/
 venv/
 *.pdf
 bibliographie/
-
-# Testing change
+cst/
 
 # Latex aux files
 *.aux
