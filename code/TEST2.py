@@ -4,14 +4,14 @@ import matplotlib.pyplot as plt
 import matplotlib 
 
 
-dataair = np.loadtxt("C:/Users/MAISON/Desktop/STAGE_M1/Absorbtion_substrat/Scanning_200GHZ-1320GHZ_air_.txt")
-dataair2 = np.loadtxt("C:/Users/MAISON/Desktop/STAGE_M1/Absorbtion_substrat/Scanning_200GHZ-1320GHZ_air_enveloppe.txt")
-datasamphold = np.loadtxt("C:/Users/MAISON/Desktop/STAGE_M1/Absorbtion_substrat/Scanning_200GHZ-1320GHZ_sampleholder_.txt")
-datasamphold2 = np.loadtxt("C:/Users/MAISON/Desktop/STAGE_M1/Absorbtion_substrat/Scanning_200GHZ-1320GHZ_sampleholder_enveloppe.txt")
-datasaph = np.loadtxt("C:/Users/MAISON/Desktop/STAGE_M1/Absorbtion_substrat/Scanning_200GHZ-1320GHZ_saphire_.txt")
-datasaph2 = np.loadtxt("C:/Users/MAISON/Desktop/STAGE_M1/Absorbtion_substrat/Scanning_200GHZ-1320GHZ_saphire_enveloppe.txt")
-dataSTO = np.loadtxt("C:/Users/MAISON/Desktop/STAGE_M1/Absorbtion_substrat/Scanning_200GHZ-1320GHZ_STO_.txt")
-dataSTO22 = np.loadtxt("C:/Users/MAISON/Desktop/STAGE_M1/Absorbtion_substrat/Scanning_200GHZ-1320GHZ_STO_enveloppe.txt")
+dataair = np.loadtxt("data/Scanning_200GHZ-1320GHZ_air_.txt")
+dataair2 = np.loadtxt("data/Scanning_200GHZ-1320GHZ_air_enveloppe.txt")
+datasamphold = np.loadtxt("data/Scanning_200GHZ-1320GHZ_sampleholder_.txt")
+datasamphold2 = np.loadtxt("data/Scanning_200GHZ-1320GHZ_sampleholder_enveloppe.txt")
+datasaph = np.loadtxt("data/Scanning_200GHZ-1320GHZ_saphire_.txt")
+datasaph2 = np.loadtxt("data/Scanning_200GHZ-1320GHZ_saphire_enveloppe.txt")
+dataSTO = np.loadtxt("data/Scanning_200GHZ-1320GHZ_STO_.txt")
+dataSTO22 = np.loadtxt("data/Scanning_200GHZ-1320GHZ_STO_enveloppe.txt")
 
 def cos(f, A, phi):
     return np.exp(A)*np.cos(2.358*f+phi)
