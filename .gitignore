@@ -5,7 +5,8 @@ data/
 venv/
 *.pdf
 bibliographie/
-cst/
+bowtie-optimization/
+dipole-antenna/
 
 # Latex aux files
 *.aux
