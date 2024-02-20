@@ -27,6 +27,7 @@ def cosfit(f,C,j,p0,name):
             A.append(np.exp(P[0]))
             freq.append(f[i+int(j/2)])
             phi.append(P[1])
+            #w.append(P[2])
             plt.plot(f[i:i+j]/10**3, cos(f[i:i+j], *P), "r")
 
     plt.legend()
@@ -35,14 +36,14 @@ def cosfit(f,C,j,p0,name):
     plt.title(name)
     plt.savefig("C:/Users/MAISON/Desktop/STAGE_M1/Figures/"+name)
     plt.show()
-    return (A, phi, freq)
+    return (A, phi, freq)#w)
 
-f=dataair[:,3]
-A=dataair[:,2]
+f=dataSTO[:,3]
+A=dataSTO[:,2]
 j=108;P0=[10, 0]
-AA,phi,freq=cosfit(f,A,j,P0,name="Absorbtion air 200-1320GHz")
-print(AA)
-name2="Enveloppe air (200-1320GHz)"
+w=[]
+AA,phi,freq=cosfit(f,A,j,P0,name="Absorbtion STO 200-1320GHz")
+name2="Enveloppe STO (200-1320GHz)"
 
 def hl_envelopes_idx(s, dmin=1, dmax=5, split=False):
     """
@@ -79,22 +80,28 @@ if __name__ == "__main__":
     y = A
     # Now we get the high and low envelopes
     lmin, lmax = hl_envelopes_idx(y, dmin=5, dmax=9, split=False)
+
     # Plotting
     #plt.plot(x, y, label='Original Data')
-    plt.plot(x[lmax], y[lmax], label='Enveloppe Air 200-1320GHz')
-    plt.xscale("log")
+    plt.plot(x[lmax], y[lmax], label='Enveloppe STO 200-1320GHz')
+    plt.plot(dataSTO22[:,0],dataSTO22[:,1])
+    plt.plot(freq,AA)
+    plt.yscale("log")
     plt.xlabel("Frequencies (in GHz)")
     plt.ylabel("Photocurrent (in nA)")
-    plt.title("Enveloppe air (200-1320GHz)")
+    plt.title("Enveloppe STO (200-1320GHz)")
     plt.legend()
     plt.savefig("C:/Users/MAISON/Desktop/STAGE_M1/Figures/"+name2)
     plt.show()
     plt.close()
 
-TXT=[2,]
-TXT[0,:]=x[lmax]
-TXT[1,:]=y[lmax]
-np.savetxt("C:/Users/MAISON/Desktop/STAGE_M1/Figures/Dataenvair.txt",TXT)
+tx=np.size(x[lmax])
+ty=np.size(y[lmax])
+TXT=np.zeros((tx,2))
+TXT[:,0]=x[lmax]
+TXT[:,1]=y[lmax]
+np.savetxt("C:/Users/MAISON/Desktop/STAGE_M1/Figures/DataenvSTO.txt",TXT)
+
 
 
 
