@@ -7,7 +7,7 @@ venv/
 bibliographie/
 bowtie-optimization/
 dipole-antenna/
-
+CST_BOWTIE_OPTI_PACE/
 # Latex aux files
 *.aux
 *.log

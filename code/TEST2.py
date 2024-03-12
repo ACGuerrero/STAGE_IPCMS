@@ -3,15 +3,13 @@ import scipy as sc
 import matplotlib.pyplot as plt 
 import matplotlib 
 
+datasaphmircea = np.loadtxt("C:/Users/MAISON/Desktop/STAGE_IPCMS/code/data/saphire substrate Mircea/Scanning_200GHZ-1320GHZ_saphire.txt")
+datasaphmircea2 = np.loadtxt("C:/Users/MAISON/Desktop/STAGE_IPCMS/code/data/saphire substrate Mircea/Scanning_200GHZ-1320GHZ_saphire_enveloppe.txt")
+datasampleholder = np.loadtxt("C:/Users/MAISON/Desktop/STAGE_IPCMS/code/data/saphire substrate Mircea/Scanning_200GHZ-1320GHZ_saphire.txt")
+datasampleholder2 = np.loadtxt("C:/Users/MAISON/Desktop/STAGE_IPCMS/code/data/saphire substrate Mircea/Scanning_200GHZ-1320GHZ_sample_holder_enveloppe.txt")
+dataSi = np.loadtxt("C:/Users/MAISON/Desktop/STAGE_IPCMS/code/data/Si substrate/Scanning_200GHZ-1320GHZ_Si.txt")
+dataSi2 = np.loadtxt("C:/Users/MAISON/Desktop/STAGE_IPCMS/code/data/Si substrate/Scanning_200GHZ-1320GHZ_Si_enveloppe.txt")
 
-dataair = np.loadtxt("data/Scanning_200GHZ-1320GHZ_air_.txt")
-dataair2 = np.loadtxt("data/Scanning_200GHZ-1320GHZ_air_enveloppe.txt")
-datasamphold = np.loadtxt("data/Scanning_200GHZ-1320GHZ_sampleholder_.txt")
-datasamphold2 = np.loadtxt("data/Scanning_200GHZ-1320GHZ_sampleholder_enveloppe.txt")
-datasaph = np.loadtxt("data/Scanning_200GHZ-1320GHZ_saphire_.txt")
-datasaph2 = np.loadtxt("data/Scanning_200GHZ-1320GHZ_saphire_enveloppe.txt")
-dataSTO = np.loadtxt("data/Scanning_200GHZ-1320GHZ_STO_.txt")
-dataSTO22 = np.loadtxt("data/Scanning_200GHZ-1320GHZ_STO_enveloppe.txt")
 
 def cos(f, A, phi):
     return np.exp(A)*np.cos(2.358*f+phi)
@@ -34,16 +32,20 @@ def cosfit(f,C,j,p0,name):
     plt.xlabel("Frequency (THz)")
     plt.ylabel("Photocurrent (nA)")
     plt.title(name)
-    plt.savefig("C:/Users/MAISON/Desktop/STAGE_M1/Figures/"+name)
+    plt.savefig("C:/Users/MAISON/Desktop/STAGE_IPCMS/code/Figures"+name)
     plt.show()
     return (A, phi, freq)#w)
 
-f=dataSTO[:,3]
-A=dataSTO[:,2]
+f=dataSi[:,3]
+A=dataSi[:,2]
+b=dataSi2[:,0]
+c=dataSi2[:,1]
 j=108;P0=[10, 0]
 w=[]
-AA,phi,freq=cosfit(f,A,j,P0,name="Absorbtion STO 200-1320GHz")
-name2="Enveloppe STO (200-1320GHz)"
+name1="Absorbtion Si 200-1320GHz"
+name2="Enveloppe Si (200-1320GHz)"
+AA,phi,freq=cosfit(f,A,j,P0,name1)
+
 
 def hl_envelopes_idx(s, dmin=1, dmax=5, split=False):
     """
@@ -83,15 +85,15 @@ if __name__ == "__main__":
 
     # Plotting
     #plt.plot(x, y, label='Original Data')
-    plt.plot(x[lmax], y[lmax], label='Enveloppe STO 200-1320GHz')
-    plt.plot(dataSTO22[:,0],dataSTO22[:,1])
+    plt.plot(x[lmax], y[lmax], label=name2)
+    plt.plot(b,c)
     plt.plot(freq,AA)
     plt.yscale("log")
     plt.xlabel("Frequencies (in GHz)")
     plt.ylabel("Photocurrent (in nA)")
-    plt.title("Enveloppe STO (200-1320GHz)")
+    plt.title(name2)
     plt.legend()
-    plt.savefig("C:/Users/MAISON/Desktop/STAGE_M1/Figures/"+name2)
+    plt.savefig("C:/Users/MAISON/Desktop/STAGE_IPCMS/code/Figures"+name2)
     plt.show()
     plt.close()
 
@@ -100,7 +102,7 @@ ty=np.size(y[lmax])
 TXT=np.zeros((tx,2))
 TXT[:,0]=x[lmax]
 TXT[:,1]=y[lmax]
-np.savetxt("C:/Users/MAISON/Desktop/STAGE_M1/Figures/DataenvSTO.txt",TXT)
+np.savetxt("C:/Users/MAISON/Desktop/STAGE_IPCMS/code/Figures"+name2,TXT)
 
 
 
