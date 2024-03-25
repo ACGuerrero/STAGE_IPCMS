@@ -1,11 +1,6 @@
 import numpy as np 
 import scipy as sc 
 import matplotlib.pyplot as plt 
-import matplotlib 
-
-dataair = np.loadtxt("C:/Users/MAISON/Desktop/StageM1_LEROY_CASTILLO/Si substrate/Scanning_200GHZ-1320GHZ_air.txt")
-dataglass = np.loadtxt("C:/Users/MAISON/Desktop/StageM1_LEROY_CASTILLO/Si substrate/Scanning_200GHZ-1320GHZ_glass.txt")
-dataSi = np.loadtxt("C:/Users/MAISON/Desktop/StageM1_LEROY_CASTILLO/Si substrate/Scanning_200GHZ-1320GHZ_Si.txt")
 
 def cos(f, A, phi):
     return np.exp(A)*np.cos(2.358*f+phi)
@@ -15,24 +10,13 @@ def cos2(f,phi):
 
 def cosfit(f,C,j,p0,name):
     A=[];freq=[];phi=[]
-    #plt.figure()
-    #plt.grid()
-    #plt.plot(f/10**3, C, ".", label="Data")
     for i in range(0, len(f)-j-1, 3):
         P=sc.optimize.curve_fit(cos, f[i:i+j], C[i:i+j], P0, maxfev=5000)[0]
         if np.exp(P[0])>0.01:
             A.append(np.exp(P[0]))
             freq.append(f[i+int(j/2)])
             phi.append(P[1])
-            #w.append(P[2])
-            #plt.plot(f[i:i+j]/10**3, cos(f[i:i+j], *P), "r")
-    #plt.legend()
-    #plt.xlabel("Frequency (THz)")
-    #plt.ylabel("Photocurrent (nA)")
-    #plt.title(name)
-    #plt.savefig("C:/Users/MAISON/Desktop/STAGE_IPCMS/code/Figures"+name)
-    #plt.show()
-    return (A, phi, freq)#w)
+    return (A, phi, freq)
 
 def cosfit2(f,C,j,p0,name):
     freq=[];phi=[]
@@ -102,28 +86,65 @@ def hl_envelopes_idx(s, dmin=1, dmax=5, split=False):
     return lmin,lmax
 
 if __name__ == "__main__":
-    x = f#f[:-2]
-    y = A #Amodif
-    y2 = A2modif[:]
-    #Y=y2/y
+
+    #NAMES
+    name1="Absorbtion glass 200-1320GHz"
+    name3="Absobtion glass 200-1320GHz"
+    name2="Transmittance of glass (200-1320GHz)"
+    name4="Enveloppe of Absorbtion of glass and Si"
+
+
+    # LOADING DATA
+    dataair = np.loadtxt("data/Si substrate/Scanning_200GHZ-1320GHZ_air.txt")
+    dataglass = np.loadtxt("data/Si substrate/Scanning_200GHZ-1320GHZ_glass.txt")
+    dataSi = np.loadtxt("data/Si substrate/Scanning_200GHZ-1320GHZ_Si.txt")
+
+    # EXTRACTING DATA
+    f=dataSi[:,3]
+    A=dataSi[:,2]
+    Amodif = A[A != 0]
+    f2=dataair[:,3]
+    A2=dataair[:,2]
+    A2modif=A2[A2 !=0]
+    A2modif=A2modif[:-1]
+    #b=dataSi2[:,0]
+    #c=dataSi2[:,1]
+
+    # FUNCTION PARAMETERS
+    j=108
+    P0=[10, 0]
+
+    # APPLY FUNCTION
+    AA,phi,freq=cosfit(f,A,j,P0,name1)
+    AA3,phi3,freq3=cosfit(f2,A2,j,P0,name3)
+
     # Now we get the high and low envelopes
-    lmin, lmax = hl_envelopes_idx(y, dmin=5, dmax=9, split=False)
+    lmin, lmax = hl_envelopes_idx(A, dmin=5, dmax=9, split=False)
     lmin2, lmax2 = hl_envelopes_idx(A2, dmin=5, dmax=9, split=False)
-    # Plotting
+
+    # CALCULS
+
+    AA=np.array(AA)
+    AA3=np.array(AA3)
+    AA3interp=np.interp(freq,freq3,AA3)
+    A4=AA/AA3interp
+
+
+    # PLOTTING
+
+    plt.figure()
+    plt.plot(freq,AA)
+    plt.show()
+
+    '''
+
     #plt.plot(x, y, label='Original Data')
     #plt.plot(x[lmax], y[lmax], label=name2)
     #AA2,phi,freq=cosfit(x,Y,j,P0,name1)
     #plt.plot(b,c)
     #plt.plot(freq,AA)
     #plt.plot(freq3,AA3)
-    AA=np.array(AA)
-    AA3=np.array(AA3)
-    AA3interp=np.interp(freq,freq3,AA3)
-    A4=AA/AA3interp
-    print(A4)
-    print(type(A4))
-    plt.figure()
-    plt.plot(freq,A4)
+
     #plt.yscale("log")
     # RATIO BETWEEN AMPLITUDE OF Si AND AIR 
     #plt.plot(x,abs(y2/y))
@@ -204,4 +225,5 @@ if __name__ == "__main__":
     plt.show()
 
 
+'''
 
