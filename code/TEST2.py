@@ -26,7 +26,6 @@ def cosfit(f,C,j,p0,name):
             phi.append(P[1])
             #w.append(P[2])
             #plt.plot(f[i:i+j]/10**3, cos(f[i:i+j], *P), "r")
-
     #plt.legend()
     #plt.xlabel("Frequency (THz)")
     #plt.ylabel("Photocurrent (nA)")
@@ -64,10 +63,10 @@ A2modif=A2modif[:-1]
 #c=dataSi2[:,1]
 j=108;P0=[10, 0]
 w=[]
-name1="Absorbtion glass 200-1320GHz"
-name3="Absobtion glass 200-1320GHz"
-name2="Transmittance of glass (200-1320GHz)"
-name4="Enveloppe of Absorbtion of glass and Si"
+name1="Absorbtion Si 200-1320GHz"
+name3="Absobtion Si 200-1320GHz"
+name2="Transmittance of Si (200-1320GHz)"
+name4="Enveloppe of Absorbtion of air and Si"
 
 AA,phi,freq=cosfit(f,A,j,P0,name1)
 AA3,phi3,freq3=cosfit(f2,A2,j,P0,name3)
@@ -175,20 +174,33 @@ if __name__ == "__main__":
     P1=[0]
     
 
-    def Atrans(ff, R1, R2, n):
+    def Atrans(f, R1, R2, n):
         l = 285e-6 # Keeping l as a floating-point number
         c = 3e8    # Keeping c as a floating-point number
-        return (1-R1)*(1-R2)/((1-np.sqrt(R1*R2))**2+4*np.sqrt(R1*R2)*np.sin(2*np.pi*l*n/c*ff)**2)   
+        return (1-R1)*(1-R2)/((1-np.sqrt(R1*R2))**2+4*np.sqrt(R1*R2)*np.sin(2*np.pi*l*n/c*f)**2)   
     
     freq_int = [int(np.round(x)) for x in freq]
     P0=[0.3, 0.3, 3.4]
-    print(type(freq_int))
     freq_int=np.array(freq)*10**9
-    P=sc.optimize.curve_fit(Atrans,freq_int,A4,P0,maxfev=100000)[0]
-    print(P)
+    #P=sc.optimize.curve_fit(Atrans,freq_int,A4,P0,maxfev=100000)[0]
+    j=108
+    R1=[]
+    R2=[]
+    n=[]
+    freQ=[]
+
+    for i in range(0, np.size(freq_int)-j-1, 3):
+        P=sc.optimize.curve_fit(Atrans, freq_int[i:i+j], A4[i:i+j], P0, maxfev=5000)[0]
+        if np.exp(P[0])>0.01:
+            R1.append(np.exp(P[0]))
+            freQ.append(freq_int[i+int(j/2)])
+            R2.append(P[1])
+            n.append(P[2])
+
+
     plt.figure()
     plt.plot(freq_int/10**12,A4)
-    plt.plot(freq_int/10**12,Atrans(freq_int,*P0))
+    plt.plot(freq_int/10**12,Atrans(freQ,R1,R2,n))
     plt.show()
 
 
