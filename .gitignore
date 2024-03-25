@@ -1,7 +1,6 @@
 # Gitignore
 bureaucracie/
 figures/
-data/
 venv/
 *.pdf
 bibliographie/
