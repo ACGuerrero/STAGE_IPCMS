@@ -17,7 +17,7 @@ def fit(fct,xdata,ydata,pas):
     return A,f,phi
 
 def cos(A,f,phi):
-    return np.exp(A)*np.cos(f+phi)
+    return (*np.cos(f+phi)
 
 guess=np.array([200,np.pi])
 pas=108
