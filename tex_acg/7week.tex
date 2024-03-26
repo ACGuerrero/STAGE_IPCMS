@@ -2,16 +2,41 @@
 
 \subsection{Lundi}
 
-Aujord'hui j'ai travaillé sur le code de Victor. En gros il a essayé de faire une fonction 
-
-\section{``In-text'' listing highlighting}
-
+Aujord'hui j'ai travaillé sur le code de Victor. En gros il a
+essayé de faire une fonction \pythoninline{fit} qui généralise
+les fonctions de Quentin.
 \begin{python}
-class MyClass(Yourclass):
-    def __init__(self, my, yours):
-        bla = '5 1 2 3 4'
-        print bla
+def fit(fct,xdata,ydata,pas):
+    j=np.size(xdata);A=np.zeros(j);f=np.zeros(j);phi=np.zeros(j)
+    for i in range(j-pas-1):
+        P=sc.optimize.curve_fit(fct, xdata[i:pas+i], ydata[i:pas+i])[0]
+        A[i]=P[0]
+        f[i]=ydata[i+int(pas/2)]
+        phi[i]=P[1]
+    return A,f,phi
 \end{python}
+Cependant elle ne marche comme elle devrait. Après beaucoup
+d'effort nous y sommes arrivés:
+\begin{python}
+def fit(fct, xdata, ydata, interval_size, P0, step_size, maxfev=10000):
+
+    N = np.size(xdata)
+    new_xvalues = np.zeros(N)
+    parameters = np.zeros((N, len(P0)))
+    count = 0
+
+    for i in range(0, N-interval_size-1, step_size):
+        P = sc.optimize.curve_fit(fct, xdata[i:i+interval_size], ydata[i:i+interval_size], P0, maxfev)[0]
+        if P[0] > 0.01 :
+            parameters[count] = P
+            new_xvalues[count] = xdata[i+int(interval_size/2)]
+            count += 1
+            P0 = P
+    print(f'\nCurve fitted, input size is {N}, output size is {count}')
+return  new_xvalues[:count], parameters[:count].T
+\end{python}
+
+Avec cette fonction on a pu fitter les envelopes pour la data de l'air et du silicium.
 
 \section{External listing highlighting}
 
