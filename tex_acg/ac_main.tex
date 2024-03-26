@@ -15,62 +15,70 @@
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{wrapfig}
+\usepackage{tcolorbox}
 \listfiles
 
 %*********
 %Comandos
 %*********
-\newcommand{\mcU}{\mathcal{U}}
-\newcommand{\mcV}{\mathcal{V}}
-\newcommand{\mcO}{\mathcal{O}}
-\newcommand{\mcI}{\mathcal{I}}
-\newcommand{\mcL}{\mathcal{L}}
-\newcommand{\mcS}{\mathcal{S}}
-\newcommand{\hilbert}{{\sf H}}
-\newcommand{\mcB}{\mathcal{B}}
-\newcommand{\mcH}{\mathcal{H}}
-\newcommand{\mcK}{\mathcal{K}}
-\newcommand{\mcF}{\mathcal{F}}
-\newcommand{\mcC}{\mathcal{C}}
-\newcommand{\mcT}{\mathcal{T}}
-\newcommand{\mcE}{\ensuremath{\mathcal{E}} }
-\newcommand{\mcG}{\ensuremath{\mathcal{G}} }
-\newcommand{\mcM}{\mathcal{M}}
-\newcommand{\mcN}{\mathcal{N}}
-\newcommand{\nnn}{\mathcal{N}}
-\newcommand{\choi}{\ensuremath{\mcD} }
-\newcommand{\mmm}{\mathcal{M}}
-\newcommand{\sss}{\mathcal{S}}
-\newcommand{\mcD}{\mathcal{D}}
-\newcommand{\mcA}{\mathcal{A}}
-\newcommand{\mcP}{\mathcal{P}}
-\newcommand{\Complex}{\mathbb{C}} %Para escribir al espacio de hilbert complejo
-\newcommand{\Id}{\mathds{1}}% Para escribir el op. indentidad con notación chida
-\newcommand{\CG}[1]{\mcC\left[#1\right]}
-\newcommand{\Fuzzy}[1]{\mcF\left[#1\right]}
-\newcommand{\nota}[1]{{\color{red} [#1]}}
-\newcommand{\notaAd}[1]{{\color{orange} [#1]}} %Notas pero mías
-\newcommand{\pauli}[1]{\sigma_{#1}} %Para las matrices de pauli
-\newcommand{\paulivec}[1]{\hat{#1}\cdot\vec{\sigma}} %Para vectores de Pauli unitarios
-\newcommand{\cnot}{\text{C}_{\text{NOT}}} %Para el CNOT
-\newcommand{\eff}{\text{ef}}
-\newcommand{\ef}{\text{ef}}
-\newcommand{\np}{\text{np}}
-\DeclareMathOperator*{\Motimes}{\text{\raisebox{0.25ex}{\scalebox{0.8}{$\bigotimes$}}}} %para los productos tensoriales
-%FixNote
-\usepackage[draft,inline,nomargin]{fixme} \fxsetup{theme=color}
-\newcommand\dsone{\mathds{1}}
-\newenvironment{proof}{\paragraph{Demostración:}\color{darkgray}\begin{multicols}{2}}{\hfill$\square$\end{multicols}}
+% Default fixed font does not support bold face
+\DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{12} % for bold
+\DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{12}  % for normal
+
+% Custom colors
+\usepackage{color}
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+
+\usepackage{listings}
+
+% Python style for highlighting
+\newcommand\pythonstyle{\lstset{
+language=Python,
+basicstyle=\ttm,
+morekeywords={self},              % Add keywords here
+keywordstyle=\ttb\color{deepblue},
+emph={MyClass,__init__},          % Custom highlighting
+emphstyle=\ttb\color{deepred},    % Custom highlighting style
+stringstyle=\color{deepgreen},
+frame=tb,                         % Any extra options here
+showstringspaces=false
+}}
+
+% Python environment
+\lstnewenvironment{python}[1][]
+{
+\pythonstyle
+\lstset{#1}
+}
+{}
+
+% Python for external files
+\newcommand\pythonexternal[2][]{{
+\pythonstyle
+\lstinputlisting[#1]{#2}}}
+
+% Python for inline
+\newcommand\pythoninline[1]{{\pythonstyle\lstinline!#1!}}
+
+
 
 \title{Stage au IPCMS}
 \author{Autores}
 \date{}
+
 \begin{document}
 \maketitle
 \tableofcontents
-\input{week1.tex}
-\input{week2.tex}
-
-\input{week3.tex}
-
+\newpage
+\input{glossaire.tex}
+\newpage
+\input{1week.tex}
+\input{2week.tex}
+\input{3week.tex}
+\input{4week.tex}
+\input{5week.tex}
+\input{6week.tex}
+\input{7week.tex}
 \end{document}
